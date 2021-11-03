@@ -1,12 +1,13 @@
 
 import './App.css';
-import TasksContext from './components/context/TasksContext';
+import StoreProvider from './store/StoreProvider';
+import TaskListComponent from './components/container/TaskListComponent';
 
 function App() {
   return (
-    <div className="App">
-      <TasksContext></TasksContext>
-    </div>
+    <StoreProvider>
+      <TaskListComponent />
+    </StoreProvider>
   );
 }
 
