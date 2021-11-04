@@ -8,7 +8,7 @@ import nextId from "react-id-generator";
 const initialStore = [
     new Task(nextId(), 'Example1', 'Description1', true, LEVELS.NORMAL),
     new Task(nextId(), 'Example2', 'Description 2', false, LEVELS.URGENT),
-    new Task(nextId(), 'Example3', 'Description 3', false, LEVELS.BLOCKING)
+    new Task(nextId(), 'Example3', 'Description 3', true, LEVELS.BLOCKING)
 ];
 
 //Acciones que puede despachar el reducer de tareas
@@ -24,21 +24,19 @@ Plantilla de como se ha de comportar el reducer en dierentes casos (switch)
 const StoreReducer = (state, action) => {
     switch (action.type) {
         case taskActionTypes.CREATE_TASK:
+            console.log(state)
             return [
                 ...state,
-                {
-                    id: action.payload.id,
-                    name: action.payload.name,
-                    description: action.payload.description,
-                    completed: false,
-                    levele: action.payload.level
-                }
-
+                new Task ( action.payload.id,
+                    action.payload.name,
+                    action.payload.description,
+                    action.payload.completed,
+                    action.payload.level
+                )
             ]
 
         case taskActionTypes.DELETE_TASK:
-            const index = state.findIndex(task => task.id === action.payload.id);
-            return state.splice(index, 1)
+            return state.filter((item) => item.id !== action.payload.id);
 
         default:
             return state

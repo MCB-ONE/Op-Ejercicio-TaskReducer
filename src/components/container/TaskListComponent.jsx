@@ -28,9 +28,9 @@ const TaskListComponent = () => {
                 >
                     <Typography variant="h4" component="h1" align="center" >Task List</Typography>
                     <Taskform 
-                    create = {dispatch(taskActionTypes.CREATE_TASK)}
-                    length = {store.length}
-                />
+                        dispatch = {dispatch}
+                        length = {store.length}
+                    />
                 </Box>
                 <Table sx={{ minWidth: 700 }}>
                     <TableHead>
@@ -39,7 +39,7 @@ const TaskListComponent = () => {
                             <TableCell>Name</TableCell>
                             <TableCell>Description</TableCell>
                             <TableCell>Priority</TableCell>
-                            <TableCell>Completed</TableCell>
+                            <TableCell>State</TableCell>
                             <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -49,6 +49,7 @@ const TaskListComponent = () => {
                                 <TaskComponent
                                     task={task}
                                     key={i}
+                                    dispatch = {dispatch}
                                 >
                                 </TaskComponent>
                             )

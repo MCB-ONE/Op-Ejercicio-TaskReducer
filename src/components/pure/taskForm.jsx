@@ -1,27 +1,40 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { LEVELS } from '../../models/levels.enum';
-import { Task } from '../../models/task.class';
+import { taskActionTypes } from '../../store/StoreReducer';
+/**react-id-generator import para generar id automaticos */
+import nextId from "react-id-generator";
 
 /**MUI imports */
 import { Button, Box, Paper, TextField, Select, MenuItem } from '@material-ui/core';
 
-const Taskform = ({ create, length }) => {
+
+const Taskform = ({ dispatch, length }) => {
 
     const nameRef = useRef('');
     const descriptionRef = useRef('');
-    const levelRef = useRef(LEVELS.NORMAL);
+/*     const levelRef = useRef(LEVELS.NORMAL); */
+    const [levelTask,setLevelTask] = useState(LEVELS.NORMAL);
+
+
+    /**Function to select update value */
+    const updateLevel = (e) => {
+        setLevelTask(e.target.value)
+    }
 
     function addTask(e) {
         e.preventDefault();
-        const newTask = new Task(
-            nameRef.current.value,
-            descriptionRef.current.value,
-            false,
-            levelRef.current.value
-        );
-        console.log(newTask)
-        /* create(newTask); */
+        setLevelTask()
+        dispatch({
+            type: taskActionTypes.CREATE_TASK, 
+            payload: {
+                id: nextId(), 
+                name: nameRef.current.value,
+                description: descriptionRef.current.value,
+                completed: false,
+                level: levelTask
+            }
+            })
     }
 
 
@@ -44,7 +57,7 @@ const Taskform = ({ create, length }) => {
                     <TextField inputRef={nameRef} id='inputName' type='text' required autoFocus placeholder='Task Name' />
                     <TextField inputRef={descriptionRef} id='inputDescription' type='text' required placeholder='Task description' />
                     
-                    <Select ref={levelRef} defaultValue={LEVELS.NORMAL} id='selectLevel'>
+                    <Select  defaultValue={LEVELS.NORMAL} id='selectLevel' onChange={updateLevel}>
                             <MenuItem value={LEVELS.NORMAL}>
                                 Normal
                             </MenuItem >
