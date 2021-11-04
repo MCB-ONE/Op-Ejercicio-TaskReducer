@@ -1,7 +1,6 @@
 import { createContext, useReducer } from "react";
 import StoreReducer, { initialStore } from "./StoreReducer";
 
-
 //Creamos el contexto global
 const StoreContext = createContext();
 
@@ -18,5 +17,5 @@ const StoreProvider = ({ children }) => {
     )
 }
 
-export { StoreContext }
-export default StoreProvider
+export { StoreContext };
+export default StoreProvider;

@@ -13,7 +13,7 @@ const Taskform = ({ dispatch, length }) => {
 
     const nameRef = useRef('');
     const descriptionRef = useRef('');
-/*     const levelRef = useRef(LEVELS.NORMAL); */
+    /* const levelRef = useRef(LEVELS.NORMAL); */
     const [levelTask,setLevelTask] = useState(LEVELS.NORMAL);
 
 
@@ -24,7 +24,6 @@ const Taskform = ({ dispatch, length }) => {
 
     function addTask(e) {
         e.preventDefault();
-        setLevelTask()
         dispatch({
             type: taskActionTypes.CREATE_TASK, 
             payload: {
@@ -51,13 +50,15 @@ const Taskform = ({ dispatch, length }) => {
                 <form onSubmit={addTask}  
                     style={{
                         display: "flex",
-                        gap: "10px"
+                        alignItems:"center",
+                        justifyContent:"center",
+                        gap: "40px"
                     }}
                 >
                     <TextField inputRef={nameRef} id='inputName' type='text' required autoFocus placeholder='Task Name' />
                     <TextField inputRef={descriptionRef} id='inputDescription' type='text' required placeholder='Task description' />
                     
-                    <Select  defaultValue={LEVELS.NORMAL} id='selectLevel' onChange={updateLevel}>
+                    <Select defaultValue={LEVELS.NORMAL} id='selectLevel' onChange={updateLevel}>
                             <MenuItem value={LEVELS.NORMAL}>
                                 Normal
                             </MenuItem >
